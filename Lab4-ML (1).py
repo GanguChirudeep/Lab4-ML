@@ -247,7 +247,7 @@ plot_tree(model, filled=True, feature_names=['embed_1', 'embed_2'], class_names=
 plt.title("Decision Tree")
 plt.show()
 
-#In[8]:
+#In[9]:
 
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
@@ -282,7 +282,7 @@ plot_tree(model, filled=True, feature_names=['embed_1', 'embed_2'], class_names=
 plt.title("Decision Tree with max_depth=5")
 plt.show()
 
-#In[9]:
+#In[10]:
 
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
@@ -324,7 +324,7 @@ plot_tree(model_entropy, filled=True, feature_names=['embed_1', 'embed_2'], clas
 plt.title("Decision Tree with Entropy Criterion")
 plt.show()
 
-#In[10]:
+#In[11]:
 
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
@@ -343,6 +343,62 @@ Tr_X, Te_X, Tr_y, Te_y = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Create a single Decision Tree classifier
 model_decision_tree = DecisionTreeClassifier()
+model_decision_tree.fit(Tr_X, Tr_y)
+
+# Predict using the Decision Tree model
+y_pred_decision_tree = model_decision_tree.predict(Te_X)
+
+# Calculate accuracy and print metrics for the Decision Tree
+accuracy_decision_tree = accuracy_score(Te_y, y_pred_decision_tree)
+confusion_matrix_decision_tree = confusion_matrix(Te_y, y_pred_decision_tree)
+classification_report_decision_tree = classification_report(Te_y, y_pred_decision_tree)
+
+print("Performance Metrics for Single Decision Tree:")
+print(f"Accuracy: {accuracy_decision_tree}")
+print("Confusion Matrix:")
+print(confusion_matrix_decision_tree)
+print("Classification Report:")
+print(classification_report_decision_tree)
+
+# Create a Random Forest classifier
+model_random_forest = RandomForestClassifier(n_estimators=100, random_state=42)
+model_random_forest.fit(Tr_X, Tr_y)
+
+# Predict using the Random Forest model
+y_pred_random_forest = model_random_forest.predict(Te_X)
+
+# Calculate accuracy and print metrics for the Random Forest
+accuracy_random_forest = accuracy_score(Te_y, y_pred_random_forest)
+confusion_matrix_random_forest = confusion_matrix(Te_y, y_pred_random_forest)
+classification_report_random_forest = classification_report(Te_y, y_pred_random_forest)
+
+print("\nPerformance Metrics for Random Forest:")
+print(f"Accuracy: {accuracy_random_forest}")
+print("Confusion Matrix:")
+print(confusion_matrix_random_forest)
+print("Classification Report:")
+print(classification_report_random_forest)
+
+
+#In[12]:
+
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+
+# Separate features (X) and target (y)
+X = df[['embed_1', 'embed_2']]
+y = df['Label']
+
+
+# Split the data into training and test sets (70% training, 30% test)
+Tr_X, Te_X, Tr_y, Te_y = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Create a single Decision Tree classifier
+model_decision_tree = DecisionTreeClassifier(random_state=42)
 model_decision_tree.fit(Tr_X, Tr_y)
 
 # Predict using the Decision Tree model

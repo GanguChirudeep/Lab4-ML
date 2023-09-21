@@ -282,3 +282,44 @@ plot_tree(model, filled=True, feature_names=['embed_1', 'embed_2'], class_names=
 plt.title("Decision Tree with max_depth=5")
 plt.show()
 
+#In[8]:
+
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+from sklearn.tree import plot_tree
+
+
+
+# Separate features (X) and target (y)
+X = df[['embed_1', 'embed_2']]
+y = df['Label']
+
+# Split the data into training and test sets (70% training, 30% test)
+Tr_X, Te_X, Tr_y, Te_y = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Create a Decision Tree classifier with entropy criterion
+model_entropy = DecisionTreeClassifier(criterion="entropy")
+
+# Fit the model on the training data
+model_entropy.fit(Tr_X, Tr_y)
+
+# Training Set accuracy with entropy criterion
+train_accuracy_entropy = model_entropy.score(Tr_X, Tr_y)
+
+# Test Set Accuracy with entropy criterion
+test_accuracy_entropy = model_entropy.score(Te_X, Te_y)
+
+print(f"Training Set Accuracy (Entropy Criterion): {train_accuracy_entropy}")
+print(f"Test Set Accuracy (Entropy Criterion): {test_accuracy_entropy}")
+
+# Convert class labels to strings
+class_names = df['Label'].unique().astype(str).tolist()
+
+
+# Plot the Decision Tree with entropy criterion
+plt.figure(figsize=(10, 6))
+plot_tree(model_entropy, filled=True, feature_names=['embed_1', 'embed_2'], class_names=class_names)
+plt.title("Decision Tree with Entropy Criterion")
+plt.show()

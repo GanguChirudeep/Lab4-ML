@@ -247,5 +247,38 @@ plot_tree(model, filled=True, feature_names=['embed_1', 'embed_2'], class_names=
 plt.title("Decision Tree")
 plt.show()
 
+#In[8]:
 
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+from sklearn.tree import plot_tree
+X = df[['embed_1', 'embed_2']]
+y = df['Label']
+Tr_X, Te_X, Tr_y, Te_y = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Create a Decision Tree classifier with max_depth constraint
+model = DecisionTreeClassifier(max_depth=5)
+
+# Fit the model on the training data
+model.fit(Tr_X, Tr_y)
+
+# Training Set accuracy
+train_accuracy = model.score(Tr_X, Tr_y)
+
+# Test Set Accuracy
+test_accuracy = model.score(Te_X, Te_y)
+
+print(f"Training Set Accuracy: {train_accuracy}")
+print(f"Test Set Accuracy: {test_accuracy}")
+
+# Convert class labels to strings
+class_names = df['Label'].unique().astype(str).tolist()
+
+# Plot the Decision Tree with max_depth constraint
+plt.figure(figsize=(10, 6))
+plot_tree(model, filled=True, feature_names=['embed_1', 'embed_2'], class_names=class_names)
+plt.title("Decision Tree with max_depth=5")
+plt.show()
 

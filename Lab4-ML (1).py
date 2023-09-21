@@ -206,6 +206,13 @@ plt.show()
 
 #In[7]:
 
+import numpy as np
+import pandas as pd
+df=pd.read_excel("embeddingsdatalabel.xlsx")
+df
+
+#In[8]:
+
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
@@ -239,9 +246,6 @@ plt.figure(figsize=(10, 6))
 plot_tree(model, filled=True, feature_names=['embed_1', 'embed_2'], class_names=class_names)
 plt.title("Decision Tree")
 plt.show()
-
-#In[8]:
-
 
 
 
